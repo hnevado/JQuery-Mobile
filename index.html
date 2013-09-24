@@ -6,6 +6,41 @@
          <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
          <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
          <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+         <script type="text/javascript">
+
+    // Llama a onDeviceReady cuando PhoneGap se inicie
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // PhoneGap esta listo y ahora ya se pueden hacer llamadas a PhoneGap
+    //
+    function onDeviceReady() {
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+
+    // Si todo es correcto, muestro su localización
+    //
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Usted esta accediendo a esta aplicacion desde las siguientes coordenadas <br />' +
+        	 	    'Latitude: '           + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                            'Heading: '            + position.coords.heading               + '<br />' +
+                            'Speed: '              + position.coords.speed                 + '<br />' +
+                            'Timestamp: '          + position.timestamp                    + '<br />';
+    }
+
+    // Si ocurre un error al retornar la posicion, muestro msj de error
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+    </script>
     </head>
     <body>
       <div data-role="page">
@@ -25,7 +60,7 @@
           </ul>	
             
             
-            
+        <p id="geolocation">Buscando su localizaci&oacute;n...</p>    
 	</div>	
 	<div data-role="footer">
 		<p>&copy;2013 - H&eacute;ctor Nevado</p>
